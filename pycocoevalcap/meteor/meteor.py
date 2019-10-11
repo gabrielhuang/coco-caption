@@ -23,7 +23,8 @@ class Meteor(object):
                 cwd=os.path.dirname(os.path.abspath(__file__)), \
                 stdin=subprocess.PIPE, \
                 stdout=subprocess.PIPE, \
-                stderr=subprocess.PIPE)
+                stderr=subprocess.PIPE,
+                bufsize=0)  # 0 is no longer default value in Python 3
         # Used to guarantee thread safety
         self.lock = threading.Lock()
 
