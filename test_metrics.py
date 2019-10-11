@@ -50,7 +50,7 @@ tests = [
     ('Rouge', rouge.Rouge(), references, candidates, 0.5027146063609029),
     ('Bleu', bleu.Bleu(), references, candidates, [0.44388336186369043, 0.28615312506956214, 0.16393460357431763, 2.309415185245007e-05]),
     ('Cider', cider.Cider(), references, candidates, 1.55587810018),
-    ('Spice', spice.Spice(), references, candidates, 0.597222222222),
+    #('Spice', spice.Spice(), references, candidates, 0.597222222222),
     ('Meteor', meteor.Meteor(), references, candidates, 0.257030123779),
 ]
 
@@ -133,7 +133,3 @@ if all(results):
     print('\nAll evaluation metric tests have PASSED')
 else:
     print('\nSome evaluation metric tests have FAILED')
-
-print('\n\nTesting tokenizer')
-
-tokenizer = PTBTokenizer()
