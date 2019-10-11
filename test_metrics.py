@@ -6,6 +6,7 @@ from pycocoevalcap.meteor import meteor
 from pycocoevalcap.rouge import rouge
 from pycocoevalcap.spice import spice
 import sys
+from pycocoevalcap.tokenizer.ptbtokenizer import PTBTokenizer
 
 
 def isclose(a, b, rel_tol=1e-5, abs_tol=1e-5):
@@ -46,11 +47,11 @@ print('References {}'.format(references))
 print('Candidates {}'.format(candidates))
 
 tests = [
-   # ('Rouge', rouge.Rouge(), references, candidates, 0.5027146063609029),
-    #('Bleu', bleu.Bleu(), references, candidates, [0.44388336186369043, 0.28615312506956214, 0.16393460357431763, 2.309415185245007e-05]),
-    #('Cider', cider.Cider(), references, candidates, 1.55587810018),
-    #('Meteor', meteor.Meteor(), references, candidates, 0.257030123779),
-    #('Spice', spice.Spice(), references, candidates, 0.597222222222)
+    ('Rouge', rouge.Rouge(), references, candidates, 0.5027146063609029),
+    ('Bleu', bleu.Bleu(), references, candidates, [0.44388336186369043, 0.28615312506956214, 0.16393460357431763, 2.309415185245007e-05]),
+    ('Cider', cider.Cider(), references, candidates, 1.55587810018),
+    ('Spice', spice.Spice(), references, candidates, 0.597222222222),
+    ('Meteor', meteor.Meteor(), references, candidates, 0.257030123779),
 ]
 
 
@@ -90,7 +91,7 @@ tests.append((
 
 tests.append((
     'Meteor 2',
-    cider.Cider(),
+    meteor.Meteor(),
     # ref
     {
         1: ['i did a test'],
@@ -102,7 +103,7 @@ tests.append((
         2: ['cooking can be quite fun, if you give it a chance.'],
         3: ['wait eight minutes, and then strain the contents of the pot.']
     },
-    1.35741235571
+    0.305448979717
 ))
 
 tests.append((
@@ -129,6 +130,10 @@ for metric_name, metric_object, ref, cand, true_score in tests:
     results.append(pass_test)
 
 if all(results):
-    print('\nAll tests have PASSED')
+    print('\nAll evaluation metric tests have PASSED')
 else:
-    print('\nSome tests have FAILED')
+    print('\nSome evaluation metric tests have FAILED')
+
+print('\n\nTesting tokenizer')
+
+tokenizer = PTBTokenizer()
